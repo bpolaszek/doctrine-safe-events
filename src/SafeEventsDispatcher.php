@@ -62,31 +62,28 @@ final class SafeEventsDispatcher implements EventSubscriber
     public function postFlush(PostFlushEventArgs $eventArgs): void
     {
         $eventManager = $eventArgs->getObjectManager()->getEventManager();
+        $postPersists = clone $this->postPersists;
+        $postUpdates = clone $this->postUpdates;
+        $postRemoves = clone $this->postRemoves;
 
-        $clear = new SplObjectStorage();
-        foreach ($this->postPersists as $postPersist) {
+        foreach ($postPersists as $postPersist) {
             if ($eventArgs->getObjectManager() === $postPersist->getObjectManager()) {
+                $this->postPersists->detach($postPersist);
                 $eventManager->dispatchEvent(SafeEvents::POST_PERSIST, $postPersist);
-                $clear->attach($postPersist);
             }
         }
-        foreach ($this->postUpdates as $postUpdate) {
+        foreach ($postUpdates as $postUpdate) {
             if ($eventArgs->getObjectManager() === $postUpdate->getObjectManager()) {
+                $this->postUpdates->detach($postUpdate);
                 $eventManager->dispatchEvent(SafeEvents::POST_UPDATE, $postUpdate);
-                $clear->attach($postUpdate);
             }
         }
-        foreach ($this->postRemoves as $postRemove) {
+        foreach ($postRemoves as $postRemove) {
             if ($eventArgs->getObjectManager() === $postRemove->getObjectManager()) {
+                $this->postRemoves->detach($postRemove);
                 $eventManager->dispatchEvent(SafeEvents::POST_REMOVE, $postRemove);
-                $clear->attach($postRemove);
             }
         }
-
-        $this->postPersists->removeAll($clear);
-        $this->postUpdates->removeAll($clear);
-        $this->postRemoves->removeAll($clear);
-        $clear->removeAll($clear);
     }
 
     public function getSubscribedEvents(): array
