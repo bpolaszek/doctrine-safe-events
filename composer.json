@@ -7,7 +7,6 @@
         "doctrine/orm": "~2.0"
     },
     "require-dev": {
-        "doctrine/annotations": "~1.0",
         "matthiasnoback/doctrine-orm-test-service-provider": "^3.0",
         "pestphp/pest": "^1.22",
         "phpstan/phpstan": "^1.8",
