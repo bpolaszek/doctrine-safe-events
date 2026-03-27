@@ -1,13 +1,11 @@
 parameters:
     level: 8
-    checkGenericClassInNonGenericObjectType: false
     paths:
         - src
         - tests
     ignoreErrors:
         -
-            message: '#Call to an undefined method Pest\\Expectation\|Pest\\Support\\Extendable#'
-            path: tests/*
+            identifier: missingType.generics
         -
-            message: '#Undefined variable: \$this#'
+            message: '#Call to an undefined method PHPUnit\\Framework\\TestCase::getEntityManager\(\)#'
             path: tests/*
