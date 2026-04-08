@@ -3,7 +3,7 @@
     "description": "Fires postPersist / postUpdate / postRemove events AFTER the transaction has completed.",
     "type": "library",
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "doctrine/orm": "~2.0"
     },
     "require-dev": {
