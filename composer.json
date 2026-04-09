@@ -3,12 +3,10 @@
     "description": "Fires postPersist / postUpdate / postRemove events AFTER the transaction has completed.",
     "type": "library",
     "require": {
-        "php": ">=7.4",
+        "php": ">=8.0",
         "doctrine/orm": "~2.0"
     },
     "require-dev": {
-        "doctrine/annotations": "~1.0",
-        "matthiasnoback/doctrine-orm-test-service-provider": "^3.0",
         "pestphp/pest": "^1.22",
         "phpstan/phpstan": "^1.8",
         "squizlabs/php_codesniffer": "^3.7",
