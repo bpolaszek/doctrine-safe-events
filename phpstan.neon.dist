@@ -6,7 +6,7 @@ parameters:
         - tests
     ignoreErrors:
         -
-            message: '#Call to an undefined method Pest\\Expectation\|Pest\\Support\\Extendable#'
+            message: '#Call to an undefined method PHPUnit\\Framework\\TestCase::getEntityManager\(\)#'
             path: tests/*
         -
             message: '#Undefined variable: \$this#'
