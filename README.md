@@ -14,6 +14,12 @@ However, these events are fired _immediately_, e.g. not once the transaction is 
 - If the wrapping transaction takes some time (typically during row locks), you get the inserted / updated / deleted information **before it's actually done**
 (meaning if you run some async process once those events are triggered, you end up in processing not data which is not **up-to-date**)
 
+Doctrine ORM documentation states:
+
+> [!WARNING]
+> At the time `postPersist` is called, there may still be collection and/or "extra" updates pending. The database **may not yet be completely in sync with the entity states** in memory, **not even for the new entities**. 
+> Similarly, also at the time `postUpdate` and `postRemove` are called, in-memory collections may still be in a "dirty" state or still contain removed entities.
+
 ## Background
 
 The idea of this repository indeed came up with the following issue:
