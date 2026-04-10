@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Bentools\DoctrineSafeEvents\Tests;
 
+use Doctrine\DBAL\DriverManager;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\ORMSetup;
@@ -20,10 +21,12 @@ trait EntityManagerAwareTestCase
             isDevMode: true,
         );
 
-        $this->entityManager = EntityManager::create(
-            ['driver' => 'pdo_sqlite', 'memory' => true],
-            $config,
+        $connection = DriverManager::getConnection(
+            params: ['driver' => 'pdo_sqlite', 'memory' => true],
+            config: $config,
         );
+
+        $this->entityManager = new EntityManager($connection, $config);
 
         $schemaTool = new SchemaTool($this->entityManager);
         $schemaTool->createSchema(
